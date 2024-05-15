@@ -2,7 +2,7 @@ import { InputText, PrimaryButton } from "@/components/Inputs"
 import { LoginFacebookIcon, LoginGoogleIcon } from "@/components/Svgs"
 import { Colors } from "@/constants/Colors"
 import { textStyles } from "@/styles/textStyles"
-import { Link } from "expo-router"
+import { Link, router } from "expo-router"
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 "react-native"
 
@@ -16,7 +16,7 @@ const SignIn = () => {
       <Link href="forgot-password" style={{ textAlign: "right", marginBottom: 24}}>
         <Text style={{ marginBottom: 24, fontWeight: "medium" }}>Forgot Password?</Text>
       </Link>
-      <PrimaryButton>Sign In</PrimaryButton>
+      <PrimaryButton onPress={() => router.push("success")}>Sign In</PrimaryButton>
       <View style={{ flexDirection: "row", alignItems: "center", marginTop: 40, gap: 11 }}>
         <View style={{ height: 2, flex: 1, backgroundColor: Colors.neutral[300] }}></View>
         <Text style={[textStyles.bodyMedium, { color: Colors.neutral[500], fontWeight: "medium" }]}>OR</Text>

@@ -18,7 +18,7 @@ const NewPassword = () => {
             <InputText style={{ marginTop: 24, marginBottom: 20 }} placeholder='New password' />
             <Text style={[textStyles.bodySmall, styles.tagline]}>Your password needs to be at least 8 characters long. Includes some words and phrases to make it even safer</Text>
             <InputText style={{ marginTop: 24}} placeholder='Confirm New password' />
-            <PrimaryButton onPress={() => router.push("success")} style={{ marginTop: "auto"}}>Continue</PrimaryButton>
+            <PrimaryButton onPress={() => router.push("verification")} style={{ marginTop: "auto"}}>Continue</PrimaryButton>
         </View>
     )
 }

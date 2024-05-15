@@ -41,7 +41,7 @@ const ForgotPassword = () => {
                 <Text style={[textStyles.bodyLarge, styles.methodName]}>Phone Number</Text>
                 <Text style={[textStyles.bodySmall, styles.methodTagline]}>Your phone: *****87365</Text>
             </TouchableOpacity>
-            <PrimaryButton onPress={() => router.push("new-password")} style={{ marginTop: "auto" }}>Next</PrimaryButton>
+            <PrimaryButton onPress={() => router.push("verification")} style={{ marginTop: "auto" }}>Next</PrimaryButton>
         </View>
     )
 }
