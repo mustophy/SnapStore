@@ -1,6 +1,5 @@
 import { Image, ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { router } from 'expo-router'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Colors } from '@/constants/Colors'
 import { PrimaryButton } from '@/components/Inputs'
 import { textStyles } from '@/styles/textStyles'

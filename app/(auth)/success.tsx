@@ -14,7 +14,7 @@ const success = () => {
                 <Text style={styles.header}>Success</Text>
                 <Text style={styles.tagline}>You have successfully registered in our app and can start working in it</Text>
             </View>
-            <PrimaryButton style={{ width: "100%" }}>Continue</PrimaryButton>
+            <PrimaryButton onPress={() => router.navigate("(tabs)")} style={{ width: "100%" }}>Continue</PrimaryButton>
         </View>
     )
 }

@@ -2,6 +2,7 @@ import { PrimaryButton } from "@/components/Inputs"
 import { ArrowBackIcon, CloseIcon, MinusIcon, PlusIcon } from "@/components/Svgs"
 import { Colors } from "@/constants/Colors"
 import { textStyles } from "@/styles/textStyles"
+import { router } from "expo-router"
 import { useState } from "react"
 import { SafeAreaView, View, ScrollView, Text, StyleSheet, TouchableOpacity, Image } from "react-native"
 
@@ -26,7 +27,7 @@ const Orders = () => {
       </View>
       <View style={{ marginTop: 'auto' }}>
 
-        <PrimaryButton>Checkout</PrimaryButton>
+        <PrimaryButton onPress={() => router.push("orders/single-order")}>Checkout</PrimaryButton>
       </View>
     </SafeAreaView >
   )

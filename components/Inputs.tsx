@@ -1,17 +1,31 @@
 import { Colors } from "@/constants/Colors"
 import { textStyles } from "@/styles/textStyles";
 import { ReactNode, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { CheckMarkIcon } from "./Svgs";
 
 
 type InputTextProps = {
     placeholder?: string;
-    style?: {}
+    style?: {};
+    value?: string;
+    maxLength?: number;
+    onChangeText?: (text: string) => void;
+    dark?: boolean
 }
-export const InputText = ({ placeholder, style } : InputTextProps) => {
+export const InputText = ({ placeholder, dark, style, onChangeText, value, maxLength = 30 }: InputTextProps) => {
     return (
-        <TextInput placeholderTextColor={Colors.neutral[400]} placeholder={placeholder} style={[inputTextStyle.textInput, style]}/>
+        <TextInput
+            value={value}
+            onChangeText={onChangeText}
+            placeholderTextColor={dark ? Colors.neutral[500] : Colors.neutral[900]}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            style={[
+                inputTextStyle.textInput,
+                dark && { ...inputTextStyle.darkContainer, ...inputTextStyle.darkText },
+                style
+            ]} />
     )
 }
 
@@ -23,10 +37,46 @@ type ButtonProps = {
 export const PrimaryButton = ({ children, onPress, style }: ButtonProps) => {
     return (
         <TouchableOpacity onPress={onPress} style={[inputTextStyle.buttonContainer, style]}>
-            <Text style={[inputTextStyle.buttonText, textStyles.bodyLarge]}>{children}</Text>
+            <Text style={[textStyles.bodyLarge, inputTextStyle.buttonText]}>{children}</Text>
         </TouchableOpacity>
     )
 }
+
+type SwitchProps = {
+    isActive?: boolean;
+    setIsActive: (isActive: boolean) => void
+}
+export const Switch = ({ isActive = false, setIsActive }: SwitchProps) => {
+    return (
+        <Pressable style={[SwitchStyle.container, isActive && SwitchStyle.activeContainer]} onPress={() => setIsActive(!isActive)}>
+            <View style={[SwitchStyle.switch]}>
+
+            </View>
+        </Pressable>
+    )
+}
+
+const SwitchStyle = StyleSheet.create({
+    container: {
+        height: 24,
+        width: 44,
+        backgroundColor: Colors.neutral[300],
+        borderRadius: 1000,
+        justifyContent: "flex-start",
+        padding: 2
+    },
+    activeContainer: {
+        backgroundColor: "#00AB67",
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    },
+    switch: {
+        height: "100%",
+        aspectRatio: 1,
+        borderRadius: 20,
+        backgroundColor: Colors.neutral[100]
+    }
+})
 
 const inputTextStyle = StyleSheet.create({
     textInput: {
@@ -46,9 +96,15 @@ const inputTextStyle = StyleSheet.create({
         backgroundColor: Colors.neutral[900],
         borderRadius: 10
     },
+    darkContainer: {
+        backgroundColor: Colors.neutral[900]
+    },
     buttonText: {
         lineHeight: 24,
         fontWeight: "semibold",
+        color: Colors.neutral[50]
+    },
+    darkText: {
         color: Colors.neutral[50]
     }
 })
@@ -56,7 +112,7 @@ const inputTextStyle = StyleSheet.create({
 export const CheckBox = () => {
     const [isActive, setIsActive] = useState(false)
     return (
-        <TouchableOpacity style={[checkBoxStyle.container, {backgroundColor: isActive ? Colors.neutral[900] : "transparent"}]} onPress={() => setIsActive(!isActive)}>
+        <TouchableOpacity style={[checkBoxStyle.container, { backgroundColor: isActive ? Colors.neutral[900] : "transparent" }]} onPress={() => setIsActive(!isActive)}>
             {isActive && <CheckMarkIcon />}
         </TouchableOpacity>
     )

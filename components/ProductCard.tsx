@@ -5,7 +5,7 @@ import { CartIcon } from './Svgs'
 
 const ProductCard = () => {
     return (
-        <View style={{ position: 'relative'}}>
+        <View style={{ position: 'relative', minWidth: 169, flex: 1}}>
             <View style={style.container}>
                 <Image
                     style={style.productImage}
@@ -29,11 +29,9 @@ const style = StyleSheet.create({
         borderRadius: 16,
         paddingVertical: 12,
         paddingHorizontal: 20,
-        width: 169,
         overflow: "visible",
         shadowColor: Colors.neutral[300],
         height: 208,
-        marginBottom: 40,
         alignItems: "center"
     },
     productImage: {

@@ -9,7 +9,7 @@ const Categories = () => {
   const [activeFilter, setActiveFilter] = useState(filters[1])
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginTop: 50, paddingHorizontal: 16 }}>
+      <ScrollView style={{ marginTop: 50, paddingHorizontal: 16, }}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 24 }}>
           <ArrowBackIcon />
           <View style={{ position: "relative", flex: 1 }}>
@@ -18,7 +18,7 @@ const Categories = () => {
           </View>
           <FilterIcon />
         </View>
-        <ScrollView style={{ marginTop: 16 }} horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView style={{ marginTop: 16, marginBottom: 61 }} horizontal={true} showsHorizontalScrollIndicator={false}>
           <View style={{ flexDirection: "row", gap: 16 }}>
             {filters.map(filter => (
               <TouchableOpacity onPress={() => setActiveFilter(filter)} style={[style.filterContainer, activeFilter === filter && style.activeFilterContainer]} key={filter}>
@@ -27,7 +27,7 @@ const Categories = () => {
             ))}
           </View>
         </ScrollView>
-        <View style={{ flexDirection: "row", marginTop: 16, flexWrap: "wrap", justifyContent: "space-between"}}>
+        <View style={{ flexDirection: "row", gap: 16, flexWrap: "wrap", rowGap: 32 }}>
           {[1, 2, 4, 5,7,8].map((_) => (
             <ProductCard />
           ))}
@@ -62,6 +62,4 @@ const style = StyleSheet.create({
   }
 })
 
-const filters = [
-  "New", "Best Seller", "Trending", "Recent"
-]
+const filters = [ "New", "Best Seller", "Trending", "Recent" ]

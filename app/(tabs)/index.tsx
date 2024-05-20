@@ -10,36 +10,34 @@ import { TouchableOpacity } from 'react-native';
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState(tabs[2])
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "purple" }}>
-      <ScrollView style={{ backgroundColor: Colors.neutral[50], paddingHorizontal: 16, paddingTop: 68 }}>
-        <View style={{ marginBottom: 29 }}>
-          <Image
-            source={require('@/assets/images/logo.png')}
-          />
+    <SafeAreaView style={{ flex: 1, padding: 16, paddingTop: 50, backgroundColor: Colors.neutral[50]  }}>
+      <View style={{ marginBottom: 29 }}>
+        <Image
+          source={require('@/assets/images/logo.png')}
+        />
 
+      </View>
+      <View style={{ position: "relative", marginBottom: 20 }}>
+        <SearchIcon style={{ position: "absolute", top: 23, left: 16, zIndex: 20 }} />
+        <CameraIcon style={{ position: "absolute", top: 23, right: 38, zIndex: 20 }} />
+        <ScanIcon style={{ position: "absolute", top: 23, right: 16, zIndex: 20 }} />
+        <InputText placeholder="Search" style={{ paddingLeft: 44 }} />
+        {/* <TextInput style={[textStyles.bodyMedium, { borderWidth: 1, borderColor: Colors.neutral[500], borderRadius: 16, height: 50, paddingLeft: 52, color: Colors.neutral[800] }]} /> */}
+      </View>
+      <ScrollView style={{ height: 60 }} horizontal={true} showsHorizontalScrollIndicator={false}>
+        <View style={{ flexDirection: "row", gap: 24,  }}>
+          {tabs.map(tab => (
+            <TouchableOpacity onPress={() => setActiveTab(tab)} style={[style.tabContainer, activeTab === tab && style.activeTabContainer]} key={tab}>
+              <Text style={[textStyles.bodySmall, style.tabText, activeTab === tab && style.activeTabText]}>{tab}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-        <View style={{ position: "relative", }}>
-          <SearchIcon style={{ position: "absolute", top: 23, left: 16, zIndex: 20 }} />
-          <CameraIcon style={{ position: "absolute", top: 23, right: 38, zIndex: 20 }} />
-          <ScanIcon style={{ position: "absolute", top: 23, right: 16, zIndex: 20 }} />
-          <InputText placeholder="Search" style={{ paddingLeft: 44 }} />
-          {/* <TextInput style={[textStyles.bodyMedium, { borderWidth: 1, borderColor: Colors.neutral[500], borderRadius: 16, height: 50, paddingLeft: 52, color: Colors.neutral[800] }]} /> */}
-        </View>
-
-        <ScrollView style={{ marginTop: 16 }} horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={{ flexDirection: "row", gap: 24, }}>
-            {tabs.map(tab => (
-              <TouchableOpacity onPress={() => setActiveTab(tab)} style={[style.tabContainer, activeTab === tab && style.activeTabContainer]} key={tab}>
-                <Text style={[textStyles.bodySmall, style.tabText, activeTab === tab && style.activeTabText]}>{tab}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-
-        <View style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", rowGap: 24}}>
-          {productList.map(({ image, name, price }) => {
+      </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", gap: 17 }}>
+          {productList.map(({ image, name, price }, index) => {
             return (
-              <HomeProductCard image={image} name={name} price={price} />
+              <HomeProductCard key={`${name}${index}`} image={image} name={name} price={price} />
             )
           })}
         </View>
@@ -55,6 +53,7 @@ const style = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderColor: Colors.neutral[300],
+    height: 38,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -78,7 +77,7 @@ const style = StyleSheet.create({
   }
 })
 
-const HomeProductCard = ({ name, price, image}) => {
+const HomeProductCard = ({ name, price, image }) => {
   return (
     <ImageBackground style={productCardStyle.container} source={image}>
       <TouchableOpacity style={productCardStyle.likeContainer}>
@@ -98,7 +97,8 @@ const HomeProductCard = ({ name, price, image}) => {
 const productCardStyle = StyleSheet.create({
   container: {
     height: 217,
-    width: 175,
+    minWidth: 175,
+    flex: 1,
     borderRadius: 16,
     overflow: "hidden",
     resizeMode: "center",
@@ -151,6 +151,11 @@ const productList = [
   {
     name: "Shirt",
     price: 100,
+    image: require("@/assets/images/jacket.png"),
+  },
+  {
+    name: "Jacket",
+    price: 200,
     image: require("@/assets/images/jacket.png"),
   },
   {
