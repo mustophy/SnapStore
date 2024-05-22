@@ -1,14 +1,17 @@
-import { ArrowBackIcon, CardIcon, ChevronRightIcon, GlobeIcon, InfoCircleIcon, LocationIcon, NotificationIcon, PhoneIcon, SecurityIcon, UserIcon2 } from "@/components/Svgs"
+import { ArrowBackIcon, BagIcon, CardIcon, ChevronRightIcon, GlobeIcon, InfoCircleIcon, LocationIcon, NotificationIcon, PhoneIcon, SecurityIcon, ShoppingIcon, UserIcon2 } from "@/components/Svgs"
 import { Colors } from "@/constants/Colors"
+import { pageStyles } from "@/styles/pageStyles"
 import { textStyles } from "@/styles/textStyles"
 import { Link, router } from "expo-router"
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Pressable } from "react-native"
 
 const Profile = () => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.neutral[50], paddingHorizontal: 16, paddingTop: 50, paddingBottom: 32 }}>
-            <View style={{ position: "relative", justifyContent: "center", paddingBottom: 10 }}>
-                <ArrowBackIcon style={{ position: "absolute", top: 7, left: 6 }} />
+        <SafeAreaView style={pageStyles.pageContainer}>
+            <View style={pageStyles.header}>
+                <Pressable onPress={() => router.back()} style={pageStyles.backIcon}>
+                    <ArrowBackIcon />
+                </Pressable>
                 <Text style={[textStyles.heading4, { textAlign: "center" }]}>My Account</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -97,10 +100,16 @@ const generalProfile = [
         pageLink: "account-details",
     },
     {
+        icon: <ShoppingIcon />,
+        title: "Orders",
+        subtitle: "Add your debit or credit card",
+        pageLink: "orders",
+    },
+    {
         icon: <CardIcon />,
         title: "Payment Method",
         subtitle: "Add your debit or credit card",
-        pageLink: "/payment-method",
+        pageLink: "payment-method",
     },
     {
         icon: <LocationIcon />,

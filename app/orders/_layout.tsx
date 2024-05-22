@@ -5,7 +5,7 @@ const AuthLayout = () => {
   return (
     <SafeAreaView style={{ flex: 1, height: "100%" }}>
       <Stack
-        initialRouteName="single-order"
+        initialRouteName="index"
       >
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="single-order" options={{ headerShown: false }} />

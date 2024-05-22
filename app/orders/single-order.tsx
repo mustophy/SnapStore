@@ -5,12 +5,13 @@ import { ArrowBackIcon, BoxIcon, CheckMarkIcon, DashLines, OpenBoxIcon, Received
 import { textStyles } from '@/styles/textStyles'
 import { Colors } from '@/constants/Colors'
 import { PrimaryButton } from '@/components/Inputs'
+import { router } from 'expo-router'
 
 const singleOrder = () => {
     return (
         <View style={pageStyles.pageContainer}>
             <View style={pageStyles.header}>
-                <Pressable style={pageStyles.backIcon}>
+                <Pressable onPress={() => router.back()} style={pageStyles.backIcon}>
                     <ArrowBackIcon />
                 </Pressable>
                 <Text style={textStyles.heading4}>Orders</Text>

@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 const index = ({ }) => {
     useEffect(() => {
         setTimeout(() => {
-            router.push("delivery-address")
+            router.push("(onboarding)/onboarding1")
         }, 2000);
     }, [])
     return (

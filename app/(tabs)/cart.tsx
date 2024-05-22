@@ -1,17 +1,20 @@
 import { PrimaryButton } from "@/components/Inputs"
 import { ArrowBackIcon, CloseIcon, MinusIcon, PlusIcon } from "@/components/Svgs"
 import { Colors } from "@/constants/Colors"
+import { pageStyles } from "@/styles/pageStyles"
 import { textStyles } from "@/styles/textStyles"
 import { router } from "expo-router"
 import { useState } from "react"
-import { SafeAreaView, View, ScrollView, Text, StyleSheet, TouchableOpacity, Image } from "react-native"
+import { SafeAreaView, View, ScrollView, Text, StyleSheet, TouchableOpacity, Image, Pressable } from "react-native"
 
 const Orders = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   return (
-    <SafeAreaView style={{ flex: 1, padding: 16, marginTop: 24 }}>
-      <View style={style.header}>
-        <ArrowBackIcon style={{ position: "absolute", left: 3, top: 7 }} />
+    <SafeAreaView style={pageStyles.pageContainer}>
+      <View style={pageStyles.header}>
+        <Pressable style={pageStyles.backIcon}>
+          <ArrowBackIcon style={{ position: "absolute", left: 3, top: 7 }} />
+        </Pressable>
         <Text style={textStyles.heading4}>Cart</Text>
       </View>
       <ScrollView style={{ flex: 1, paddingBottom: 50 }} showsVerticalScrollIndicator={false}>
@@ -21,9 +24,9 @@ const Orders = () => {
           ))}
         </View>
       </ScrollView>
-      <View style={{flexDirection: "row", justifyContent: "flex-end", alignItems: "center", gap: 16, marginBottom: 24}}>
-        <Text style={[textStyles.bodyMedium, {fontWeight: "semibold", color: Colors.neutral[500]}]}>Total Price:</Text>
-        <Text style={[textStyles.heading4, {color: Colors.neutral[900], fontWeight: "bold"}]}>${totalPrice}</Text>
+      <View style={{ flexDirection: "row", justifyContent: "flex-end", alignItems: "center", gap: 16, marginBottom: 24 }}>
+        <Text style={[textStyles.bodyMedium, { fontWeight: "semibold", color: Colors.neutral[500] }]}>Total Price:</Text>
+        <Text style={[textStyles.heading4, { color: Colors.neutral[900], fontWeight: "bold" }]}>${totalPrice}</Text>
       </View>
       <View style={{ marginTop: 'auto' }}>
 

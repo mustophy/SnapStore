@@ -3,20 +3,26 @@ import { LoginFacebookIcon, LoginGoogleIcon } from "@/components/Svgs"
 import { Colors } from "@/constants/Colors"
 import { textStyles } from "@/styles/textStyles"
 import { Link, router } from "expo-router"
+import { useState } from "react"
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 "react-native"
 
 const SignIn = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  })
+  const hiddenPassword = user.password.replace(/./g, "*")
   return (
     <View style={{ padding: 16, flex: 1, paddingTop: 50, backgroundColor: Colors.neutral[50] }}>
       <Text style={[textStyles.heading3]}>Welcome back!</Text>
       <Text style={[textStyles.heading3]}>Sign In</Text>
-      <InputText placeholder="Email" style={{ marginTop: 32, marginBottom: 24 }} />
-      <InputText placeholder="Password" style={{ marginBottom: 16 }} />
+      <InputText value={user.email} onChangeText={email => setUser(prev => ({...prev, email}))} placeholder="Email" style={{ marginTop: 32, marginBottom: 24 }} />
+      <InputText value={hiddenPassword} type="password" onChangeText={password => setUser(prev => ({...prev, password}))}  placeholder="Password" style={{ marginBottom: 16 }} />
       <Link href="forgot-password" style={{ textAlign: "right", marginBottom: 24}}>
         <Text style={{ marginBottom: 24, fontWeight: "medium" }}>Forgot Password?</Text>
       </Link>
-      <PrimaryButton onPress={() => router.push("success")}>Sign In</PrimaryButton>
+      <PrimaryButton onPress={() => router.push("(tabs)")}>Sign In</PrimaryButton>
       <View style={{ flexDirection: "row", alignItems: "center", marginTop: 40, gap: 11 }}>
         <View style={{ height: 2, flex: 1, backgroundColor: Colors.neutral[300] }}></View>
         <Text style={[textStyles.bodyMedium, { color: Colors.neutral[500], fontWeight: "medium" }]}>OR</Text>

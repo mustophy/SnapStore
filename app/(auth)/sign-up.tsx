@@ -3,18 +3,26 @@ import { LoginAppleIcon, LoginFacebookIcon, LoginGoogleIcon } from "@/components
 import { Colors } from "@/constants/Colors"
 import { textStyles } from "@/styles/textStyles"
 import { Link, router } from "expo-router"
+import { useState } from "react"
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native"
 "react-native"
 
-const SignIn = () => {
+const SignUp = () => {
+    const [user, setUser] = useState({
+        username: "",
+        email: "",
+        password: ""
+
+    })
+    const hiddenPassword = user.password.replace(/./g, "*")
     return (
         <View style={{ padding: 16, flex: 1, paddingTop: 50, backgroundColor: Colors.neutral[50] }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Text style={[textStyles.heading3]}>Create Your Account</Text>
                 <Text style={[textStyles.bodySmall, { color: Colors.neutral[500] }]}>Create Your Account</Text>
-                <InputText placeholder="Name" style={{ marginTop: 32, }} />
-                <InputText placeholder="Email" style={{ marginVertical: 24 }} />
-                <InputText placeholder="Password" style={{ marginBottom: 16 }} />
+                <InputText value={user.username} onChangeText={(username) => setUser(prev => ({...prev, username}))} placeholder="Name" style={{ marginTop: 32, }} />
+                <InputText value={user.email} onChangeText={email => setUser(prev => ({...prev, email}))} placeholder="Email" style={{ marginVertical: 24 }} />
+                <InputText value={hiddenPassword} onChangeText={(password) => setUser(prev => ({...prev, password}))} type="password" placeholder="Password" style={{ marginBottom: 16 }} />
                 <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 24 }}>
                     <CheckBox />
                     <Text style={[textStyles.bodySmall, { fontWeight: "semibold", marginLeft: 8, marginRight: 4, color: Colors.neutral[500] }]}>I accepted</Text>
@@ -49,7 +57,7 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default SignUp
 
 const styles = StyleSheet.create({
     socialContainer: {

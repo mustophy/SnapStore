@@ -1,36 +1,37 @@
-import { SafeAreaView, View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from "react-native"
+import { SafeAreaView, View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Pressable, Image } from "react-native"
 import { ArrowBackIcon, FilterIcon, SearchIcon } from "@/components/Svgs"
 import { textStyles } from "@/styles/textStyles"
 import ProductCard from "@/components/ProductCard"
 import { useState } from "react"
 import { Colors } from "@/constants/Colors"
+import { pageStyles } from "@/styles/pageStyles"
+import { router } from "expo-router"
 
 const Categories = () => {
   const [activeFilter, setActiveFilter] = useState(filters[1])
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginTop: 50, paddingHorizontal: 16, }}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 24 }}>
+    <SafeAreaView style={pageStyles.pageContainer}>
+      <View style={pageStyles.header}>
+        <Pressable onPress={() => router.back()} style={pageStyles.backIcon}>
           <ArrowBackIcon />
-          <View style={{ position: "relative", flex: 1 }}>
-            <SearchIcon style={{ position: "absolute", left: 16, top: 16 }} />
-            <TextInput style={[textStyles.bodyMedium, { borderWidth: 1, borderColor: Colors.neutral[500], borderRadius: 16, height: 50, paddingLeft: 52, color: Colors.neutral[800] }]} />
-          </View>
-          <FilterIcon />
-        </View>
-        <ScrollView style={{ marginTop: 16, marginBottom: 61 }} horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={{ flexDirection: "row", gap: 16 }}>
-            {filters.map(filter => (
-              <TouchableOpacity onPress={() => setActiveFilter(filter)} style={[style.filterContainer, activeFilter === filter && style.activeFilterContainer]} key={filter}>
-                <Text style={[textStyles.bodySmall, style.filterText, activeFilter === filter && style.activeFilterText]}>{filter}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-        <View style={{ flexDirection: "row", gap: 16, flexWrap: "wrap", rowGap: 32 }}>
-          {[1, 2, 4, 5,7,8].map((_) => (
-            <ProductCard />
-          ))}
+        </Pressable>
+        <Text style={textStyles.heading4}>Categories</Text>
+      </View>
+      <ScrollView style={{ marginTop: 32 }} showsVerticalScrollIndicator={false}>
+        <View style={styles.categoryList}>
+          {categoriesList.map(({ name, image }) => {
+            return (
+              <View key={name} style={styles.categoryRow}>
+                <View style={styles.categoryImgBx}>
+                  <Image
+                    style={styles.categoryImg}
+                    source={image}
+                  />
+                </View>
+                <Text style={styles.categoryName}>{name}</Text>
+              </View>
+            )
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -39,27 +40,55 @@ const Categories = () => {
 
 export default Categories
 
-const style = StyleSheet.create({
-  filterContainer: {
-    borderRadius: 19,
-    borderWidth: 2,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderColor: Colors.neutral[300],
+const styles = StyleSheet.create({
+  categoryList: {
+    gap: 32,
+  },
+  categoryRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 17
+  },
+  categoryImgBx: {
+    borderRadius: 8,
+    height: 102,
+    width: 106,
+    alignItems: "center",
     justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: "purple"
   },
-  filterText: {
-    color: Colors.neutral[500],
-    fontWeight: "bold"
+  categoryImg: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 8,
   },
-  activeFilterContainer: {
-    backgroundColor: Colors.neutral[900],
-    borderWidth: 0,
-  },
-  activeFilterText: {
-    color: Colors.neutral[50]
+  categoryName: {
+    ...textStyles.heading6,
+    color: Colors.neutral[900]
   }
 })
 
-const filters = [ "New", "Best Seller", "Trending", "Recent" ]
+const filters = ["New", "Best Seller", "Trending", "Recent"]
+
+const categoriesList = [
+  {
+    name: "Handbag",
+    image: require("@/assets/images/handbag.png")
+  },
+  {
+    name: "Shoulder bags",
+    image: require("@/assets/images/shoulder-bag.png")
+  },
+  {
+    name: "Wallet",
+    image: require("@/assets/images/wallet.png")
+  },
+  {
+    name: "Backpacks",
+    image: require("@/assets/images/backpack.png")
+  },
+  {
+    name: "Mini Bag",
+    image: require("@/assets/images/minibag.png")
+  },
+]

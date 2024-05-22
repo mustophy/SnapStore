@@ -5,9 +5,13 @@ import { ArrowBackIcon, CheckMarkIcon, ChevronRightIcon, CreditCardIcon2, ThreeD
 import { textStyles } from '@/styles/textStyles'
 import { Colors } from '@/constants/Colors'
 import { router } from 'expo-router'
+import { useRecoilValue } from 'recoil'
+import { paymentCardsState } from '@/constants/atom'
 
 const paymentMethod = () => {
-    const [selectedCard, setSelectedCard] = useState(cardList[0])
+    const paymentCards = useRecoilValue(paymentCardsState)
+    const [selectedCard, setSelectedCard] = useState(paymentCards[0])
+    console.log(paymentCards)
     const formatCardNumber = (num: string) => {
         return `${num.slice(0,4)}   ${num.slice(4,8)}   ${num.slice(8,12)}    ${num.slice(12)}`
     }
@@ -36,7 +40,7 @@ const paymentMethod = () => {
             </View>
 
             <View style={styles.cardList}>
-                {cardList.map((card) => {
+                {paymentCards.map((card) => {
                     const { exp, name, number, type} = card
                     const isSelected = selectedCard?.name === name
                     return (

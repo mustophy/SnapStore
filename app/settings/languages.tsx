@@ -21,7 +21,7 @@ const Language = () => {
                 <Text style={textStyles.heading6}>Suggested</Text>
                 <View style={{ gap: 24, marginTop: 24 }}>
                     {suggestedLanguages.map(lang => (
-                        <Pressable onPress={() => setLanguage(lang)} style={styles.languageRow}>
+                        <Pressable key={lang} onPress={() => setLanguage(lang)} style={styles.languageRow}>
                             <Text style={[textStyles.bodyLarge, { fontWeight: "semibold" }]}>{lang}</Text>
                             <View style={[styles.checkContainer, language == lang && styles.activeCheck]}>
                                 {language === lang && <CheckMarkIcon />}
@@ -33,7 +33,7 @@ const Language = () => {
                 <Text style={textStyles.heading6}>Languages</Text>
                 <View style={{ gap: 24, marginTop: 24 }}>
                     {languageList.map(lang => (
-                        <Pressable onPress={() => setLanguage(lang)} style={styles.languageRow}>
+                        <Pressable key={lang} onPress={() => setLanguage(lang)} style={styles.languageRow}>
                             <Text style={[textStyles.bodyLarge, { fontWeight: "semibold" }]}>{lang}</Text>
                             <View style={[styles.checkContainer, language == lang && styles.activeCheck]}>
                                 {language === lang && <CheckMarkIcon />}

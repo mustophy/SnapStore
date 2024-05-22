@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import { RecoilRoot } from 'recoil';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -14,7 +15,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    
+
   });
 
   useEffect(() => {
@@ -28,19 +29,22 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false
-      }}
-      initialRouteName='delivery-address'
-    >
-      <Stack.Screen name="delivery-address" options={{ headerShown: false}} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="orders" options={{ headerShown: false }} />
-      <Stack.Screen name="(profile)" options={{ headerShown: false}} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="(onboarding)" options={{ headerShown: false }} /> */}
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <RecoilRoot>
+      <Stack
+        screenOptions={{
+          headerShown: false
+        }}
+        initialRouteName='(oboarding)'
+        >
+        <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(profile)" options={{ headerShown: false }} />
+        <Stack.Screen name="orders" options={{ headerShown: false }} />
+        <Stack.Screen name="product-details" />
+        <Stack.Screen name="delivery-address" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </RecoilRoot>
   );
 }

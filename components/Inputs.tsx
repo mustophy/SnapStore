@@ -12,8 +12,12 @@ type InputTextProps = {
     maxLength?: number;
     onChangeText?: (text: string) => void;
     dark?: boolean
+    type?: "text" | "password" | "email" | "number"
 }
-export const InputText = ({ placeholder, dark, style, onChangeText, value, maxLength = 30 }: InputTextProps) => {
+export const InputText = ({ placeholder, type = "text", dark, style, onChangeText, value="", maxLength = 30 }: InputTextProps) => {
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    let hidden = value.replace(/./g, "*")
+    console.log(hidden)
     return (
         <TextInput
             value={value}
@@ -28,6 +32,36 @@ export const InputText = ({ placeholder, dark, style, onChangeText, value, maxLe
             ]} />
     )
 }
+const inputTextStyle = StyleSheet.create({
+    textInput: {
+        padding: 16,
+        color: Colors.neutral[900],
+        fontSize: 14,
+        borderRadius: 16,
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: Colors.neutral[300]
+    },
+    buttonContainer: {
+        paddingVertical: 16,
+        alignItems: "center",
+        flexShrink: 0,
+        justifyContent: "center",
+        backgroundColor: Colors.neutral[900],
+        borderRadius: 10
+    },
+    darkContainer: {
+        backgroundColor: Colors.neutral[900]
+    },
+    buttonText: {
+        lineHeight: 24,
+        fontWeight: "semibold",
+        color: Colors.neutral[50]
+    },
+    darkText: {
+        color: Colors.neutral[50]
+    }
+})
 
 type ButtonProps = {
     children: ReactNode;
@@ -75,37 +109,6 @@ const SwitchStyle = StyleSheet.create({
         aspectRatio: 1,
         borderRadius: 20,
         backgroundColor: Colors.neutral[100]
-    }
-})
-
-const inputTextStyle = StyleSheet.create({
-    textInput: {
-        padding: 16,
-        color: Colors.neutral[900],
-        fontSize: 14,
-        borderRadius: 16,
-        backgroundColor: "white",
-        borderWidth: 2,
-        borderColor: Colors.neutral[300]
-    },
-    buttonContainer: {
-        paddingVertical: 16,
-        alignItems: "center",
-        flexShrink: 0,
-        justifyContent: "center",
-        backgroundColor: Colors.neutral[900],
-        borderRadius: 10
-    },
-    darkContainer: {
-        backgroundColor: Colors.neutral[900]
-    },
-    buttonText: {
-        lineHeight: 24,
-        fontWeight: "semibold",
-        color: Colors.neutral[50]
-    },
-    darkText: {
-        color: Colors.neutral[50]
     }
 })
 

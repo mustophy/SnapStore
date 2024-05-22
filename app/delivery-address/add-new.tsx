@@ -6,15 +6,18 @@ import { textStyles } from '@/styles/textStyles'
 import { Redirect, router } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import MapView, { MapMarker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { Colors } from '@/constants/Colors'
 import { useRef, useState } from 'react'
 import { Link } from 'expo-router'
+import { Marker } from 'react-native-svg'
 
 const addNewAddress = () => {
   const mapRef = useRef(null)
-  const [selectedAddress, setSelectedAddress] = useState("hello")
-
+  const markerRef = useRef(null)
+  const [addressGeo, setAddressGeo] = useState(geoLocation[0])
+  const [selectedAddress, setSelectedAddress] = useState("")
+  
   async function moveToLocation(latitude: number, longitude: number) {
     // @ts-ignore
     mapRef.current.animateToRegion({
@@ -23,6 +26,8 @@ const addNewAddress = () => {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }, 2000)
+    // @ts-ignore
+    markerRef.current.coordinate = { latitude, longitude }
   }
 
   return (
@@ -85,14 +90,24 @@ const addNewAddress = () => {
         style={styles.map}
         showsUserLocation
         showsMyLocationButton
-      />
-      <View style={styles.saveContainer}>
-        <Text style={[textStyles.bodyLarge, { fontWeight: "semibold" }]}>Location Details</Text>
-        <View style={{ marginVertical: 42, gap: 16 }}>
-          <InputText placeholder='Address' value={selectedAddress} />
+      >
+        <MapMarker
+          ref={markerRef}
+          coordinate={geoLocation[0]}
+        />
+      </MapView>
+      {selectedAddress &&
+        <View style={styles.saveContainer}>
+          <Pressable onPress={() => setSelectedAddress("")} style={{ position: "absolute", right: 20, padding:5, top: 30, zIndex: 100}}>
+            <Text style={{ fontWeight: "bold", fontSize: 20}}>X</Text>
+          </Pressable>
+          <Text style={[textStyles.bodyLarge, { fontWeight: "semibold" }]}>Location Details</Text>
+          <View style={{ marginVertical: 42, gap: 16 }}>
+            <InputText placeholder='Address' value={selectedAddress} />
+          </View>
+          <PrimaryButton>Save Address</PrimaryButton>
         </View>
-        <PrimaryButton>Save Address</PrimaryButton>
-      </View>
+      }
     </View>
   )
 }
@@ -105,6 +120,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   saveContainer: {
+    position: "relative",
     marginTop: "auto",
     backgroundColor: Colors.neutral[50],
     borderTopRightRadius: 32,
